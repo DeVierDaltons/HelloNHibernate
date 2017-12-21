@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="Dao\NHibernateHelper.cs" />
     <Compile Include="Dao\PersonMap.cs" />
+    <Compile Include="Model\IPersonRepository.cs" />
+    <Compile Include="Model\NHibernatePersonRepository.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
