@@ -1,12 +1,6 @@
-﻿using NHibernate.Cfg;
-using NHibernate.Dialect;
-using NHibernate.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 
 namespace HelloNHibernate
 {
@@ -14,45 +8,30 @@ namespace HelloNHibernate
     {
         static void Main(string[] args)
         {
-            var cfg = new Configuration();
-            String ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NHibernateTestDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            cfg.DataBaseIntegration(x =>
+            //new SchemaExport(new Configuration().Configure()).Create(false, true);
+            ISession session = NHibernateHelper.SessionFactory.OpenSession();
+            try
             {
-                x.ConnectionString = ConnectionString;
-                x.Driver<SqlClientDriver>();
-                x.Dialect<MsSql2008Dialect>();
-            });
-            cfg.AddAssembly(Assembly.GetExecutingAssembly());
-
-            var sefact = cfg.BuildSessionFactory();
-            using (var session = sefact.OpenSession())
-            {
-
-                using (var tx = session.BeginTransaction())
+                using (ITransaction tx = session.BeginTransaction())
                 {
-
-                    var student1 = new Product
+                    for (int i = 0; i < 30; i++)
                     {
-                        Category = "Blha",
-                        Name = "blah",
-                        Id = new Guid()
-                        
+                        var employment = new Employment
+                        {
+                            Employee = new Employee { Name = new Name { FirstName = "Employee", LastName = string.Format("{0}",i) } },
+                            Employer = new Employer { Name = string.Format("Employer {0}", i)},
+                            StartDate = new System.DateTime(),
+                            EndDate = new System.DateTime().AddDays(i)
 
-                    };
-
-                    var student2 = new Product
-                    {
-                        Category = "Glah",
-                        Name = "Konijn",
-                        Id = new Guid()
-                    };
-
-                    session.Save(student1);
-                    session.Save(student2);
+                        };
+                        session.Save(employment);
+                    }
                     tx.Commit();
                 }
-
-                Console.ReadLine();
+            }
+            finally
+            {
+                NHibernateHelper.CloseSessionFactory();
             }
         }
     }

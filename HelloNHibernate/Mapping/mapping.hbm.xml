@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="HelloNHibernate" namespace="HelloNHibernate">
+
+  <class name="Employer" table="employers">
+    <id name="Id">
+      <generator class="guid"/>
+    </id>
+    <property name="Name"/>
+  </class>
+
+  <class name="Employment" table="employment_periods">
+
+    <id name="Id">
+      <generator class="guid"/>
+    </id>
+    <property name="StartDate" column="start_date"/>
+    <property name="EndDate" column="end_date"/>
+
+    <component name="HourlyRate" class="MonetaryAmount">
+      <property name="Amount">
+        <column name="hourly_rate" sql-type="NUMERIC(12, 2)"/>
+      </property>
+      <property name="Currency" length="12"/>
+    </component>
+
+    <many-to-one name="Employer" column="employer_id" not-null="true"/>
+    <many-to-one name="Employee" column="employee_id" not-null="true"/>
+
+  </class>
+
+  <class name="Employee" table="employees">
+    <id name="Id">
+      <generator class="guid"/>
+    </id>
+    <property name="TaxfileNumber"/>
+    <component name="Name" class="Name">
+      <property name="FirstName"/>
+      <property name="Initial"/>
+      <property name="LastName"/>
+    </component>
+  </class>
+
+</hibernate-mapping>
