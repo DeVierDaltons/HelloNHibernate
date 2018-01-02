@@ -55,6 +55,7 @@ namespace HelloNHibernate
 
                     tx.Commit();
                 }
+                
             }
             finally
             {
