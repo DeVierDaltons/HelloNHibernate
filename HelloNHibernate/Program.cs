@@ -10,11 +10,9 @@ namespace HelloNHibernate
     {
         static void Main(string[] args)
         {
-            //new SchemaExport(new Configuration().Configure()).Create(false, true);
-            ISession session = NHibernateHelper.SessionFactory.OpenSession();
-            try
+            new SchemaExport(NHibernateHelper.Configuration).Create(false, true);
+            using (ISession session = NHibernateHelper.SessionFactory.OpenSession())
             {
-                /*
                 using (ITransaction tx = session.BeginTransaction())
                 {
                     for (int i = 0; i < 30; i++)
@@ -44,7 +42,6 @@ namespace HelloNHibernate
 
                     tx.Commit();
                 }
-                */
                 using (var tx = session.BeginTransaction())
                 {
                     var employments = session.Query<Employment>().ToList();
@@ -55,11 +52,6 @@ namespace HelloNHibernate
 
                     tx.Commit();
                 }
-                
-            }
-            finally
-            {
-                NHibernateHelper.CloseSessionFactory();
             }
         }
     }

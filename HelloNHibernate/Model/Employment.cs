@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace HelloNHibernate
 {
     public class Employment
     {
-        public virtual System.Guid Id
+        public virtual int Id
         {
 
             get;

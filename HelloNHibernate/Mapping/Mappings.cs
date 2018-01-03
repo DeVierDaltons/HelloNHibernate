@@ -8,7 +8,7 @@ namespace HelloNHibernate.Mapping
         public EmployerMap()
         {
             Table("employers");
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.HighLow));
             Property(x => x.Name);
         }
 
@@ -18,7 +18,7 @@ namespace HelloNHibernate.Mapping
         public EmploymentMap()
         {
             Table("employment_periods");
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.HighLow));
             Property(x => x.StartDate, m => m.Column("start_date"));
             Property(x => x.EndDate, m => m.Column("end_date"));
             Component<MonetaryAmount>(x => x.HourlyRate, c =>
@@ -53,7 +53,7 @@ namespace HelloNHibernate.Mapping
         public EmployeeMap()
         {
             Table("employees");
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.HighLow));
             Property(x => x.TaxfileNumber);
             Component<Name>(x => x.Name, c =>
             {
