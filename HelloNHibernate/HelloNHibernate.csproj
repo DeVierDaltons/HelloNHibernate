@@ -65,13 +65,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\IRepository.cs" />
+    <Compile Include="Database\NHibernateRepository.cs" />
     <Compile Include="Mapping\Mappings.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\Employer.cs" />
     <Compile Include="Model\Employment.cs" />
     <Compile Include="Model\MonetaryAmount.cs" />
     <Compile Include="Model\Name.cs" />
-    <Compile Include="NHibernateHelper.cs" />
+    <Compile Include="Database\NHibernateHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

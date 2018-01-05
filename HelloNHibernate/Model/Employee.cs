@@ -2,7 +2,7 @@
 {
     public class Employee
     {
-        public virtual int Id
+        public virtual System.Guid Id
         {
 
             get;

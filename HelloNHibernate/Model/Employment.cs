@@ -4,7 +4,7 @@ namespace HelloNHibernate
 {
     public class Employment
     {
-        public virtual int Id
+        public virtual System.Guid Id
         {
 
             get;

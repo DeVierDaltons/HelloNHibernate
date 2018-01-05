@@ -6,7 +6,7 @@ using HelloNHibernate.Mapping;
 using System.Collections.Generic;
 using System;
 
-namespace HelloNHibernate
+namespace HelloNHibernate.Database
 {
 
     public sealed class NHibernateHelper
@@ -14,6 +14,7 @@ namespace HelloNHibernate
         private static ISessionFactory _sessionFactory;
         private static HbmMapping _mapping;
         private static Configuration _configuration;
+        private static ISession _session;
 
         public static ISessionFactory SessionFactory
         {
@@ -78,6 +79,12 @@ namespace HelloNHibernate
             mapper.AddMappings(new List<System.Type> { typeof(EmployerMap), typeof(EmploymentMap), typeof(EmployeeMap) });
             //Create and return a HbmMapping of the model mapping in code
             return mapper.CompileMappingForAllExplicitlyAddedEntities();
+        }
+
+        public static ISession GetSession()
+        {            
+                //Open and return the nhibernate session 
+                return _session ?? SessionFactory.OpenSession();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Employer
     {
-        public virtual int Id
+        public virtual System.Guid Id
         {
             get;
             set;
